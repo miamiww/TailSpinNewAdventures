@@ -1,0 +1,22 @@
+{
+  "name": "talespinnewadventures",
+  "version": "0.1.0",
+  "description": "Generator for new stories obout Balloo and the gang",
+  "main": "story.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miamiww/TailSpinNewAdventures.git"
+  },
+  "author": "alden jones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miamiww/TailSpinNewAdventures/issues"
+  },
+  "homepage": "https://github.com/miamiww/TailSpinNewAdventures#readme",
+  "dependencies": {
+    "seaduck": "git+https://github.com/aparrish/seaduck.git"
+  }
+}
