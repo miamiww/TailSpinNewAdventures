@@ -3,28 +3,44 @@ let seaduck = require("seaduck");
 let n = new seaduck.Narrative({
     "nouns": [
       {
-        "name": "Joe",
+        "name": "Baloo",
         "properties": {
-          "happiness": 0,
-          "hungry": true
+          "hungry": false,
+          "adventure":8,
+          "goof off": 8,
+          "money-making": 8
         },
-        "tags": ["person"]
+        "tags": ["person","good guys"]
       },
       {
-        "name": "Mary",
+        "name": "Kit",
         "properties": {
-          "happiness": 0,
-          "hungry": true
+          "hungry": true,
+          "adventure":10,
+          "goof off": 5,
+          "money-making": 5
         },
-        "tags": ["person"]
+        "tags": ["person","good guys"]
       },
       {
-        "name": "Horatio",
+        "name": "Rebecca",
         "properties": {
-          "happiness": 0,
-          "hungry": true
+          "hungry": false,
+          "adventure":0,
+          "goof off": 0,
+          "money-making": 5
         },
-        "tags": ["person"]
+        "tags": ["person","good guys"]
+      },
+      {
+        "name": "Louis",
+        "properties": {
+          "hungry": false,
+          "adventure":0,
+          "goof off": 10,
+          "money-making": 10
+        },
+        "tags": ["person","good guys"]
       },
       {
         "name": "cookie",
