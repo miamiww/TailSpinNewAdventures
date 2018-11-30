@@ -78,5 +78,5 @@ if __name__ == '__main__':
         n = int(sys.argv[1])
     except (ValueError, IndexError):
         n = 3
-    for item in markov_generate_from_lines_in_file(n, sys.stdin, 20):
+    for item in markov_generate_from_lines_in_file(n, sys.stdin, 70):
         print(item)

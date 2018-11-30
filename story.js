@@ -7,10 +7,10 @@ let n = new seaduck.Narrative({
         "properties": {
           "hungry": false,
           "adventure":8,
-          "goof off": 8,
+          "goofoff": 8,
           "money-making": 8
         },
-        "tags": ["person","good guys"]
+        "tags": ["person","goodguys"]
       },
       {
         "name": "Kit",
@@ -20,7 +20,7 @@ let n = new seaduck.Narrative({
           "goof off": 5,
           "money-making": 5
         },
-        "tags": ["person","good guys"]
+        "tags": ["person","goodguys"]
       },
       {
         "name": "Rebecca",
@@ -30,7 +30,7 @@ let n = new seaduck.Narrative({
           "goof off": 0,
           "money-making": 5
         },
-        "tags": ["person","good guys"]
+        "tags": ["person","goodguys"]
       },
       {
         "name": "Louis",
@@ -40,32 +40,71 @@ let n = new seaduck.Narrative({
           "goof off": 10,
           "money-making": 10
         },
-        "tags": ["person","good guys"]
+        "tags": ["person","goodguys"]
       },
       {
-        "name": "cookie",
+        "name": "Don Karnage",
         "properties": {
-          "tastiness": 2,
-          "eaten": false
+          "hungry": false,
+          "adventure":8,
+          "goof off": 3,
+          "money-making": 10
         },
-        "tags": ["food"]
+        "tags": ["person","bad guys"]
       },
       {
-        "name": "spinach",
+        "name": "Don Karnage",
         "properties": {
-          "tastiness": 1,
-          "eaten": false
+          "hungry": false,
+          "adventure":8,
+          "goof off": 3,
+          "money-making": 9
         },
-        "tags": ["food"]
+        "tags": ["person","bad guys"]
       },
       {
-        "name": "cake",
+        "name": "Shere Khan",
         "properties": {
-          "tastiness": 3,
-          "eaten": false
+          "hungry": false,
+          "adventure": 0,
+          "goof off": 0,
+          "money-making": 10
         },
-        "tags": ["food"]
-      }
+        "tags": ["person","bad guys"]
+      },
+      // {
+      //   "name": "cookie",
+      //   "properties": {
+      //     "tastiness": 2,
+      //     "eaten": false
+      //   },
+      //   "tags": ["food"]
+      // },
+      // {
+      //   "name": "spinach",
+      //   "properties": {
+      //     "tastiness": 1,
+      //     "eaten": false
+      //   },
+      //   "tags": ["food"]
+      // },
+      // {
+      //   "name": "cake",
+      //   "properties": {
+      //     "tastiness": 3,
+      //     "eaten": false
+      //   },
+      //   "tags": ["food"]
+      // },
+      {
+        "name": "castle",
+        "properties": {
+          "action": 5,
+          "visited": false,
+          "two-parter": false
+        },
+        "tags": ["adventureplace"]
+      },
     ],
     "initialize": function*() {
       for (let noun of this.getNounsByProperty("hungry", true)) {
@@ -73,6 +112,24 @@ let n = new seaduck.Narrative({
       }
     },
     "actions": [
+      {
+        "name": "adventure",
+        "match": ["#goodguys", "#adventureplace"],
+        "when": function(a, b) {
+          return a.properties.adventure > 4 
+            && b.properties.action > 4 
+            && !b.properties.visited;
+        },
+        "action": function*(a, b) {
+          yield (new seaduck.StoryEvent("adventure", a, b));
+          a.properties.adventure = a.properties.adventure - 1;
+          b.properties.visited = true;
+          a.properties.goofoff = a.properties.goofoff + 1;
+          if (b.properties.two_parter) {
+            yield (new seaduck.StoryEvent("sequel", a, b));
+          }
+        }
+      },
       {
         "name": "eat",
         "match": ["#person", "#food"],
@@ -109,7 +166,7 @@ let n = new seaduck.Narrative({
         "match": ["#person"],
         "when": function(a) {
           return !a.properties.hungry 
-            && a.properties.happiness >= 2 
+            && a.properties.goofoff >= 2 
             && this.allRelatedByTag("friendship", a, "#person").length > 0;
         },
         "action": function*(a) {
@@ -120,7 +177,7 @@ let n = new seaduck.Narrative({
     "traceryDiscourse": {
       "isHappy": ["#nounA# was happy", "#nounA# felt good!"],
       "isHungry": [
-        "#nounA# had a rumble in their tummy.",
+        "#nounA#'s new get rich quick scheme",
         "#nounA# felt very hungry."],
       "makeFriends": [
         "#nounA# made friends with #nounB#.",
@@ -132,6 +189,9 @@ let n = new seaduck.Narrative({
       "eat": [
         "#nounA# ate a #nounB#.",
         "#nounA# gobbled up a #nounB#."
+      ],
+      "adventure": [
+        "A mysterious old man tells #nounA# and Kit about a treasure hidden in #nounB#, but #"
       ],
       "_end": ["The end.", "And they lived happily ever after."]
     }
